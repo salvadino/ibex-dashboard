@@ -46,6 +46,7 @@ export default class Home extends React.Component<any, IHomeState> {
     redirectUrl: '',
     clientID: '',
     clientSecret: '',
+    issuer: '',
     loaded: false,
 
     templates: [],
@@ -74,7 +75,7 @@ export default class Home extends React.Component<any, IHomeState> {
     this.updateConfiguration = this.updateConfiguration.bind(this);
   }
 
-  updateConfiguration(state) {
+  updateConfiguration(state: {templates: IDashboardConfig[], template: IDashboardConfig, creationState: string}) {
     this.setState({
       templates: state.templates || [],
       template: state.template,
@@ -82,7 +83,7 @@ export default class Home extends React.Component<any, IHomeState> {
     });
   }
 
-  updateSetup(state) {
+  updateSetup(state: IHomeState) {
     this.setState(state);
 
     // Setup hasn't been configured yet

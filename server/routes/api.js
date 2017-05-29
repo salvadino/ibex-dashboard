@@ -19,6 +19,7 @@ const fields = {
   name: /\s*name:\s*("|')(.*)("|')/,
   description: /\s*description:\s*("|')(.*)("|')/,
   icon: /\s*icon:\s*("|')(.*)("|')/,
+  logo: /\s*logo:\s*("|')(.*)("|')/,
   url: /\s*url:\s*("|')(.*)("|')/,
   preview: /\s*preview:\s*("|')(.*)("|')/,
   html: /\s*html:\s*(`)([\s\S]*?)(`)/gm
@@ -278,8 +279,6 @@ router.post('/setup', (req, res) => {
   }
 
   var content = (req.body && req.body.json) || '';
-  console.dir(content);
-
   fs.writeFile(path.join(__dirname, '..', 'config', 'setup.private.json'), content, err => {
     if (err) {
       console.error(err);

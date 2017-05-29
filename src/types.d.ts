@@ -62,6 +62,7 @@ interface IDashboardConfig extends IDataSourceContainer, IElementsContainer {
   id: string,
   name: string,
   icon?: string,
+  logo?: string,
   url: string,
   description?: string,
   html?: string,
@@ -154,4 +155,5 @@ interface ISetupConfig {
   redirectUrl: string;
   clientID: string;
   clientSecret: string;
+  issuer: string;
 }
