@@ -1,28 +1,78 @@
-# Bot Framedash
-This is an application insights based project that displays a bots analytics dashboard.
+# Ibex Dashboard [![Build Status](https://travis-ci.org/CatalystCode/ibex-dashboard.png?branch=master)](https://travis-ci.org/CatalystCode/ibex-dashboard)
+
+Ibex is a dashboarding application that enables building dashboard and templates.
+It mainly supports **Application Insights** but data sources and visual components are easily extendable.
 
 # Preview
 
-[![Preview](/docs/bot-framedash.png)](/docs/bot-framedash.png)
-[![Preview](/docs/bot-framedash-msgs.png)](/docs/bot-framedash-msgs.png)
+[![Preview](/docs/images/bot-fmk-dashboard.png)](/docs/images/bot-fmk-dashboard.png)
+[![Preview](/docs/images/bot-fmk-dashboard-msgs.png)](/docs/images/bot-fmk-dashboard-msgs.png)
+[![Preview](/docs/images/bot-fmk-dashboard-intent.png)](/docs/images/bot-fmk-dashboard-intent.png)
 
-### Show With Your Own Data
+## Display your Bot Analytics Dashboard
 
-1. Clone
-2. [Get an Application Insights App ID and Api Key](https://dev.applicationinsights.io/documentation/Authorization/API-key-and-App-ID)
+```bash
+npm install yarn -g
 
-4. Run `yarn start:dev`
-5. Open **http://localhost:3000/**
-6. Run through setup and afterwards, fill in **API Key** and **Application ID**
+git clone https://github.com/CatalystCode/ibex-dashboard
+cd ibex-dashboard
+yarn
+yarn start
+```
+
+1. Open **http://localhost:4000**
+2. Create a new template from **Bot Analytics Basic Dashboard**
+3. Run through the **Application Insights** setup and fill in **API Key** and **Application ID** according to the application insights account associated with your registered bot.
+
+### Development
+
+```bash
+yarn start:dev
+```
+
+Open **http://localhost:3000**
+
+For contribution and code documentation, [follow this link](/docs/README.md).
+
+(For more information on development environment, see https://www.fullstackreact.com/articles/using-create-react-app-with-a-server/)
 
 ## Deploy To Azure
+
+There are 3 ways to deploy to Azure:
+
+**1. Web App - Automated**
+
+1. Fork this repo (to be able to automatically create github deployment key)
+2. Copy the fork url and use it with the following deployment button:
+
+<a href="https://portal.azure.com/#create/Microsoft.Template/uri/https%3A%2F%2Fraw.githubusercontent.com%2Ftorosent%2Fibex-dashboard%2Fmaster%2Fscripts%2Fdeployment%2Fwebapp%2Fazuredeploy.json" target="_blank">
+    <img src="http://azuredeploy.net/deploybutton.png"/>
+</a>
+
+**2. Web App On Linux - Automated with Docker Hub**
+
+<a href="https://portal.azure.com/#create/Microsoft.Template/uri/https%3A%2F%2Fraw.githubusercontent.com%2FCatalystCode%2Fibex-dashboard%2Fmaster%2Fscripts%2Fdeployment%2Fwebapponlinux%2Fazuredeploy.json" target="_blank">
+    <img src="http://azuredeploy.net/deploybutton.png"/>
+</a>
+
+**3. Manual**
 
 1. Fork this repo (to be able to automatically create github deployment key)
 2. Clone & Deploy:
 3. [Create a new Web App in Azure](https://docs.microsoft.com/en-us/azure/app-service-web/app-service-continuous-deployment)
 
+## Deploy With Docker
+
+1. `docker build -t **image name** .`
+2. `docker run -d -e PORT=80 **image name** `
+3. Docker image is also available at Docker Hub - `docker pull catalystcode/ibex-dashboard`
+
+## Application Insights Integration
+
 Since application insights API doesn't support ARM yet, we need to manually [create an API Key](https://dev.applicationinsights.io/documentation/Authorization/API-key-and-App-ID) for the application insights service.
-Once you created the api key, copy and paste it into the **Dashboard settings screen**.
+The full instructions are also available when you create a new dashboard.
+
+You can also follow the next headline.
 
 ## Create new API Key and Application ID
 
@@ -39,12 +89,14 @@ The following steps explain how to connect **Application Insights** bot with you
 
 # Resources
 
-### Used Repos Technologies
+### Technologies In Use
 
+* https://facebook.github.io/react/
+* https://github.com/facebookincubator/create-react-app
 * http://recharts.org/
-* http://www.material-ui.com/
+* https://react-md.mlaursen.com/
 
-### Resources
+### Design and Patterns
 This project is built using:
 
 * https://github.com/facebookincubator/create-react-app
@@ -52,47 +104,47 @@ This project is built using:
 The server approach was added using:
 
 * https://www.fullstackreact.com/articles/using-create-react-app-with-a-server/
-* https://github.com/fullstackreact/food-lookup-demo
-* https://medium.com/@patriciolpezjuri/using-create-react-app-with-react-router-express-js-8fa658bf892d#.14dex6478
 
 Thinking about integrating with:
 
 * https://github.com/facebookincubator/create-react-app/blob/master/packages/react-scripts/template/README.md
 
 
-### Assumptions
- 1. Running node version 4.5 or above. 
+### Engines
 
-### Installation
-```bash
-git clone https://github.com/CatalystCode/ibex-dashboard.git
-cd ibex-dashboard
-npm install -g yarn
-yarn
-```
-
-### Dev
-```bash
-yarn start:dev
-```
+* Running node version 6.11 or above. 
 
 ### Test Watcher
-Runs the test watcher in an interactive mode.
-By default, runs tests related to files changes since the last commit.
+The test watcher is integrated into the create-react-app mechanism and runs tests related to files changes since the last commit.
+
+To run the test watcher in an interactive mode:
 
 ```bash
+cd client
 yarn test
 ```
 
+Alternatively, you can also run the full commands that the Travis CI server
+will run to validate any changes.
+
+```bash
+.travis/ci.sh
+```
+
 ### Build for Production
+Our CI server Travis creates new production builds automatically for changes
+to master. If you need to create a build locally, you can execute the same
+commands as the CI server.
+
 ```bash
 yarn build
 ```
 
-## What’s Inside?
+Or
 
-* [webpack](https://webpack.github.io/) with [webpack-dev-server](https://github.com/webpack/webpack-dev-server), [html-webpack-plugin](https://github.com/ampedandwired/html-webpack-plugin) and [style-loader](https://github.com/webpack/style-loader)
-* [Babel](http://babeljs.io/) with ES6 and extensions used by Facebook (JSX, [object spread](https://github.com/sebmarkbage/ecmascript-rest-spread/commits/master), [class properties](https://github.com/jeffmo/es-class-public-fields))
-* [Autoprefixer](https://github.com/postcss/autoprefixer)
-* [ESLint](http://eslint.org/)
-* [Jest](http://facebook.github.io/jest)
+```bash
+.travis/build.sh
+```
+
+# License
+MIT
